@@ -3,12 +3,11 @@ const { StringDecoder } = require("string_decoder");
 const decoder = new StringDecoder("utf-8");
 
 const getCollisionCount = (trees, x, y) => {
-  const width = trees[0].length;
   const position = { x: 0, y: 0 };
   let collisions = 0;
 
   while (position.y < trees.length) {
-    if (trees[position.y][position.x % width]) {
+    if (trees[position.y][position.x % trees[0].length]) {
       collisions++;
     }
     position.x += x;
@@ -37,9 +36,7 @@ fs.readFile("./input.txt", (err, data) => {
     .write(data)
     .split("\n")
     .filter((x) => x !== "")
-    .map((x) => {
-      return [...x].map((t) => t === "#");
-    });
+    .map((x) => [...x].map((t) => t === "#"));
 
   console.log(`Solution 1: ${getCollisionCount(trees, 3, 1)}`);
   console.log(`Solution 2: ${getMultipleSlopesProduct(trees)}`);
