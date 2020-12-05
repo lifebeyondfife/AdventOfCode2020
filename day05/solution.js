@@ -11,14 +11,10 @@ const getLargestSeat = (seats) => {
 };
 
 const findEmptySeat = (seats) => {
-  const seatIDs = seats.map(x => x.seatID).reverse();
+  const seatIDs = seats.map((x) => x.seatID).reverse();
   let seatIndex = 0;
-  let seatID = seatIDs[seatIndex];
-  while (seatIDs[++seatIndex] == seatID + 1) {
-    seatID = seatIDs[seatIndex];
-  }
-
-  return seatID + 1;
+  while (seatIDs[seatIndex] + 1 == seatIDs[++seatIndex]) {}
+  return seatIDs[seatIndex + 1];
 };
 
 fs.readFile("./input.txt", (err, data) => {
