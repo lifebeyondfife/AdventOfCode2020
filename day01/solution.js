@@ -27,11 +27,10 @@ fs.readFile("./input.txt", (err, data) => {
   const inputMap = decoder
     .write(data)
     .split("\n")
+    .filter((x) => x !== "")
     .map((x) => parseInt(x))
     .reduce((map, obj) => {
-      if (!Number.isNaN(obj)) {
-        map[obj] = true;
-      }
+      map[obj] = true;
       return map;
     }, {});
 
