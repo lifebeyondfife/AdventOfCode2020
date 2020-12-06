@@ -33,5 +33,5 @@ fs.readFile("./input.txt", (err, data) => {
     );
 
   console.log(`Solution 1: ${getGroupSizeSumAnyone(customForms)}`);
-  console.log(`Solution 1: ${getGroupSizeSumEveryone(customForms)}`);
+  console.log(`Solution 2: ${getGroupSizeSumEveryone(customForms)}`);
 });
