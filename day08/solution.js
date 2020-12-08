@@ -3,21 +3,11 @@ const { StringDecoder } = require("string_decoder");
 const decoder = new StringDecoder("utf-8");
 
 const opCodes = {
-  nop: (jump) => {
-    return (idx, state, inverse) => {
-      return inverse ? idx + jump : idx + 1;
-    };
-  },
-  jmp: (jump) => {
-    return (idx, state, inverse) => {
-      return inverse ? idx + 1 : idx + jump;
-    };
-  },
-  acc: (add) => {
-    return (idx, state, inverse) => {
-      state.accumulator += add;
-      return idx + 1;
-    };
+  nop: (jump) => (idx, state, inverse) => (inverse ? idx + jump : idx + 1),
+  jmp: (jump) => (idx, state, inverse) => (inverse ? idx + 1 : idx + jump),
+  acc: (add) => (idx, state, inverse) => {
+    state.accumulator += add;
+    return idx + 1;
   },
 };
 
