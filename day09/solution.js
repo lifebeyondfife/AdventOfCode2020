@@ -10,8 +10,7 @@ const findPair = (code, previousCodes) => {
 
 const findVulnerability = (codes, previousCodeCount = 25) => {
   const previousCodes = new Set(codes.slice(0, previousCodeCount));
-  let remove = 0;
-  let add = previousCodeCount;
+  let [remove, add] = [0, previousCodeCount];
   while (findPair(codes[add], previousCodes)) {
     previousCodes.delete(codes[remove++]);
     previousCodes.add(codes[add++]);
@@ -19,26 +18,16 @@ const findVulnerability = (codes, previousCodeCount = 25) => {
   return codes[add];
 };
 
-const contiguousSum = (slice, vuln) => {
-  let sum = 0;
-  let idx = 0;
-  let smallest = Number.MAX_SAFE_INTEGER;
-  let largest = 0;
-  while (idx < slice.length && sum < vuln) {
-    smallest = slice[idx] < smallest ? slice[idx] : smallest;
-    largest = slice[idx] > largest ? slice[idx] : largest;
-    sum += slice[idx++];
-  }
-  return sum == vuln ? smallest + largest : false;
-};
-
 const findWeakness = (codes, vuln) => {
-  let weakness = 0;
-  for (let i = 0; i < codes.length; ++i) {
-    if ((weakness = contiguousSum(codes.slice(i, codes.length), vuln))) {
-      return weakness;
-    }
+  let [lower, upper, total] = [0, 0, 0];
+  while (
+    (total = codes.slice(lower, upper).reduce((a, b) => a + b, 0)) != vuln
+  ) {
+    upper = total < vuln ? upper + 1 : upper;
+    lower = total > vuln ? lower + 1 : lower;
   }
+  const contiguous = codes.slice(lower, upper).sort();
+  return contiguous[0] + contiguous[contiguous.length - 1];
 };
 
 fs.readFile("./input.txt", (err, data) => {
