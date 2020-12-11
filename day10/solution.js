@@ -27,8 +27,8 @@ const scores = {
   1: 1,
   2: 2,
   3: 4,
-  4: 7
-}
+  4: 7,
+};
 
 const solution2 = (voltages) => {
   let voltage = 0;
@@ -41,9 +41,9 @@ const solution2 = (voltages) => {
     })
     .join("")
     .split("3")
-    .map(x => x.length)
+    .map((x) => x.length)
     .reduce((a, b) => a * scores[b], 1);
-}
+};
 
 fs.readFile("./input.txt", (err, data) => {
   const voltages = decoder
